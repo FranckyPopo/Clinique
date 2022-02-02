@@ -43,3 +43,27 @@ def connection():
             print("Le compte n'existe pas")
     else:
         print("Erreur")
+        
+
+def appoitment():
+    list_appointment = get_data(folder_data, "list_appoitment")
+    last_name = input("Veuillez entrer votre nom: ")
+    firs_name = input("Veuillez entrer votre prénom: ")
+    telephone = input("Veuillez entrer votre numéro de télephone: ")
+    choose_specialist = input("Veuillez choisir votre spéialiste: ")
+    
+    if firs_name and last_name and telephone.isdigit() and choose_specialist:
+        data_appointment = {
+            "last_name": last_name,
+            "firs_name": firs_name,
+            "telephone": telephone,
+            "choose_specialist": choose_specialist
+        }
+        
+        list_appointment.append(data_appointment)
+        recording_data(list_appointment, folder_current, "data_programme", "list_appoitment")
+    else:
+        print("Erreur")
+    
+    
+    
