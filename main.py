@@ -1,4 +1,7 @@
 import os
-from fonctions import fonctionnality
+from functions import fonctionnlity
 
-fonctionnality.recording_clients()
+folder_current = os.getcwd()
+folder_data = os.path.join(folder_current, "data")
+
+fonctionnlity.recording_clients()
