@@ -1,7 +1,6 @@
 import os
 import string
 import random
-
 from fonctions.data import get_data, recording_data
 
 folder_current = os.getcwd().replace("/fonctions", "")
@@ -99,3 +98,17 @@ def creation_id() -> str:
     return id_unique
 
     
+def cancel_appointment():
+    id_appointment = input("Veuillez entrer l'identifiant du rendez vous: ")
+    
+    if id_appointment:
+        for item in list_appointment:
+            if item["id"] == id_appointment:
+                list_appointment.remove(item)
+                recording_data(list_appointment, folder_current, "data_programme", "list_appoitment")
+                break
+    else:
+        print("Veuillez entrer un identifiant correcte")
+        
+        
+        
