@@ -8,6 +8,7 @@ folder_current = os.getcwd().replace("/fonctions", "")
 folder_data = os.path.join(folder_current, "data_programme")
 
 list_patients = get_data(folder_data, "list_patients")
+list_appointment = get_data(folder_data, "list_appoitment")
 
 def recording_clients():
     last_name = input("Veuillez entrer votre nom: ").lower()
@@ -49,7 +50,6 @@ def connection():
         
 
 def appoitment():
-    list_appointment = get_data(folder_data, "list_appoitment")
     last_name = input("Veuillez entrer votre nom: ")
     firs_name = input("Veuillez entrer votre prénom: ")
     telephone = input("Veuillez entrer votre numéro de télephone: ")
@@ -89,7 +89,7 @@ def creation_id() -> str:
     
     id_unique = "".join(id_unique)
     
-    for item in list_patients:
+    for item in list_appointment:
         if item["id"] == id_unique:
             id_existe = True
             break
