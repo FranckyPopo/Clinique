@@ -16,7 +16,10 @@ def recording_clients():
     password = input("Veuillez entrer votre mot de passe: ").lower()
     
     if last_name and firs_name and telephone.isdigit() and password:
+        _id = creation_id(list_patients, "id")
+        
         data_patient = {
+            "id": _id,
             "last_name": last_name,
             "firs_name": firs_name,
             "telephone": telephone,
@@ -55,7 +58,7 @@ def appoitment():
     choose_specialist = input("Veuillez choisir votre spéialiste: ")
     
     if firs_name and last_name and telephone.isdigit() and choose_specialist:
-        _id = creation_id()
+        _id = creation_id(list_appointment, "id")
         data_appointment = {
             "id": _id,
             "last_name": last_name,
@@ -65,18 +68,21 @@ def appoitment():
         }
         
         list_appointment.append(data_appointment)
-        print(folder_current)
         recording_data(list_appointment, folder_current, "data_programme", "list_appoitment")
     else:
         print("Erreur")
         
 
-def creation_id() -> str: 
+def creation_id(list_check: list, cle_search: str) -> str: 
     """
     Cette foonction nous permet de génerer un id unique
 
+    Args:
+        list_check (list): Ce paremetre represente la liste a parcourir 
+        key_search (str): Ce paremetre represente la clé de notre dictionnaire
+
     Returns:
-        [str]: On retourne l'id
+        [str]: La fonctionne nous retourne l'id 
     """
     
     list_alphabet = list(string.ascii_letters)
@@ -89,8 +95,8 @@ def creation_id() -> str:
     
     id_unique = "".join(id_unique)
     
-    for item in list_appointment:
-        if item["id"] == id_unique:
+    for item in list_check:
+        if item[cle_search] == id_unique:
             id_existe = True
             break
         
