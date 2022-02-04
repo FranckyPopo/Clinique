@@ -4,3 +4,6 @@ data_programme/list_appoitment.json
 data_programme/list_patients.json
 doctor/fonctions_doctor/__pycache__/
 data_programme/list_canet.json
+patient/fonctions/__pycache__/fonctionnality.cpython-310.pyc
+patient/fonctions/__pycache__/data.cpython-310.pyc
+u.py

@@ -8,7 +8,7 @@ folder_clinique = os.getcwd().replace("patient", "")
 folder_img = os.path.join(folder_clinique, "img")
 path_img = folder_img + "/" + "—Pngtree—healthcare medical logo vector icon_5059582.png"
 
-folder_data = os.path.join(folder_clinique, "data")
+folder_data = os.path.join(folder_clinique, "data_programme")
 list_patients = get_data(folder_data, "list_patients")
 list_appointment = get_data(folder_data, "list_appoitment")
 
@@ -34,6 +34,11 @@ def recording_clients():
             }
             list_patients.append(data_patient)
             recording_data(list_patients, folder_clinique, "data_programme", "list_patients")
+            
+            enter_last_name.delete(0, "end")
+            enter_firs_name.delete(0, "end")
+            enter_phone.delete(0, "end")
+            enter_password.delete(0, "end")
             
             label_error["fg"] = "#15AED6"
         else:
@@ -76,6 +81,63 @@ def recording_clients():
     
     bnt_registration = tkinter.Button(frame_container, text="S'inscrir", bg="#0e7993", width=8, height=2, font=("arial", 13, "bold"), command=check_registration)
     bnt_registration.grid(row=10, column=0, sticky="w", pady=5) 
+
+
+def connection():
+    def check_connection():
+        password = enter_password.get()
+        phone = enter_phone.get()        
+        account_exists = False
+
+        if password and phone.isdigit():
+            print(list_patients)
+            for item in list_patients:
+                if item["telephone"] == phone and item["password"] == password:
+                    account_exists = True
+                    break
+            
+            if account_exists:
+                label_error["fg"] = "#15AED6"
+                enter_password.delete(0, "end")
+                enter_phone.delete(0, "end")
+            else:
+               label_error["fg"] = "#FA0000"
+        else:
+            label_error["fg"] = "#FA0000"
+
+    
+    frame_container.place(x=150, y=140)  
+    for widget in frame_container.winfo_children():
+        widget.grid_forget()
+        
+    label_title = tkinter.Label(frame_container, text="Connectez-vous", bg="#15AED6", font=("Arial", 24, "bold"))
+    label_title.grid(row=0, column=0, pady=15)
+    
+    label_phone = tkinter.Label(frame_container, text="Téléphone", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
+    label_phone.grid(row=1, column=0, sticky="w")
+    
+    enter_phone = tkinter.Entry(frame_container)
+    enter_phone.grid(row=2, column=0, sticky="w", pady=5)
+    
+    label_password = tkinter.Label(frame_container, text="Mot de passe:", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
+    label_password.grid(row=3, column=0, sticky="w")
+    
+    enter_password = tkinter.Entry(frame_container)
+    enter_password.grid(row=4, column=0, sticky="w", pady=5)
+    
+    label_error = tkinter.Label(frame_container, text="Impossible de vous connecter", fg="#15AED6", bg="#15AED6", font=("Arial", 12, "bold"))
+    label_error.grid(row=5, column=0, sticky="w", pady=7)
+    
+    bnt_connect = tkinter.Button(frame_container, text="Se connecter", width=10, height=2, bg="#0e7993", command=check_connection)
+    bnt_connect.grid(row=6, column=0, pady=5, sticky="w")
+    
+    
+    
+    
+    
+    
+    
+    
     
 
 # Fenêtre principale
@@ -113,7 +175,7 @@ bnt_register = tkinter.Button(frame_container, text="S'inscrire", bg="#0e7993", 
 bnt_register.grid(row=3, column=0, sticky="w", pady=15)
 
 
-bnt_connect = tkinter.Button(frame_container, text="Se connecter", bg="#0e7993", width=10, height=2, font=("Arial", 12))
+bnt_connect = tkinter.Button(frame_container, text="Se connecter", bg="#0e7993", width=10, height=2, font=("Arial", 12), command=connection)
 bnt_connect.grid(row=4, column=0, sticky="w", pady=5)
 
 
