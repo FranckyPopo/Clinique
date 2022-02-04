@@ -1,4 +1,6 @@
 import tkinter
+from tkcalendar import DateEntry
+from tkinter import ttk
 import os
 from PIL import Image, ImageTk
 from fonctions.data import get_data, recording_data
@@ -153,7 +155,7 @@ def window_user():
     frame_menu = tkinter.Frame(frame_1, bg="white")
     frame_menu.place(x=0, y=110)
     
-    bnt_appointment = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3)
+    bnt_appointment = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3, command=appoitment)
     bnt_appointment.grid(row=0, column=0, pady=50)
     
     bnt_notebook = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3)
@@ -163,6 +165,50 @@ def window_user():
     bnt_cancel.grid(row=2, column=0, pady=50)
 
 
+def appoitment():
+    def check_appoitment ():
+        choose_specialist = enter_specialist.get()
+        date_appoitment = enter_date.get()
+        
+        if date_appoitment and choose_specialist:
+            _id = fonctionnality.creation_id(list_appointment, "id")
+            data_appointment = {
+                "id": _id,
+                "last_name": _ID.get("last_name", "la clé last_name n'existe pas"),
+                "firs_name": _ID.get("firs_name", "la clé firs_name n'existe pas"),
+                "phone": _ID.get("phone", "la clé phone n'existe pas"),
+                "choose_specialist": choose_specialist,
+                "data_appointment": date_appoitment
+            }
+            
+            list_appointment.append(data_appointment)
+            recording_data(list_appointment, folder_clinique, "data_programme", "list_appoitment")
+            
+            label_error["fg"] = "#15AED6"
+        else:
+           label_error["fg"] = "#FA0000"
+    
+    frame_container_appointment.place(x=180, y=220)
+    
+    label_specialist = tkinter.Label(frame_container_appointment, text="Spécialiste:", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
+    label_specialist.grid(row=0, column=0, sticky="w", pady=5)
+    
+    choice_specialist = ["Genéraliste", "Dermatologue", "Dentiste", "Neurologue", "Génécolgue"]
+    enter_specialist = ttk.Combobox(frame_container_appointment, values=choice_specialist)
+    enter_specialist.current(0)
+    enter_specialist.grid(row=1, column=0, sticky="w", pady=5)
+    
+    label_specialist = tkinter.Label(frame_container_appointment, text="Date du rendez-vous:", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
+    label_specialist.grid(row=2, column=0, sticky="w", pady=5)
+    
+    enter_date = DateEntry(frame_container_appointment, width=20)
+    enter_date.grid(row=3, column=0, sticky="w", pady=5)
+    
+    label_error = tkinter.Label(frame_container_appointment, text="Veuillez remplir tout les champs", bg="#15AED6", fg="#15AED6", font=("Arial", 12, "bold"))
+    label_error.grid(row=4, column=0, pady=5, sticky="w")
+    
+    bnt_validate_appoitment = tkinter.Button(frame_container_appointment, text="Prendre le rendez-vous", width=20, height=2, bg="#0e7993", command=check_appoitment)
+    bnt_validate_appoitment.grid(row=5, column=0, pady=5, sticky="w")
     
 
 # Fenêtre principale
@@ -186,6 +232,8 @@ frame_container_registration = tkinter.Frame(frame_2, bg="#15AED6")
 
 frame_container_img = tkinter.Frame(frame_1, bg="white", width=540)
 frame_container_img.pack(side="left", fill="y")
+
+frame_container_appointment = tkinter.Frame(frame_2, bg="#15AED6")
 
 frame_title = tkinter.Frame(frame_main, bg="#15AED6")
 frame_title.grid(row=0, column=0, pady=20)
