@@ -1,5 +1,11 @@
 import tkinter
+import os
 from PIL import Image, ImageTk
+
+folder_clinique = os.getcwd().replace("patient", "")
+print("clinique", folder_clinique)
+folder_img = os.path.join(folder_clinique, "img")
+path_img = folder_img + "/" + "—Pngtree—healthcare medical logo vector icon_5059582.png"
 
 window = tkinter.Tk()
 window.geometry("1080x720")
@@ -19,12 +25,12 @@ frame_container.place(x=80, y=200)
 frame_title = tkinter.Frame(frame_container, bg="#15AED6")
 frame_title.grid(row=0, column=0, pady=20)
 
-image = Image.open(r'C:\Users\HP\Documents\Projet_Nan\clinique\img\png-clipart-health-care-logo-no-cards-s-love-blue.jpeg')
-image_redimentionner = image.resize((300, 300))
+image = Image.open(path_img)
+image_redimentionner = image.resize((350, 350))
 image_final = ImageTk.PhotoImage(image_redimentionner)
 
 image_label = tkinter.Label(frame_1, image=image_final, bg='white')
-image_label.place(x= 140, y=210)
+image_label.place(x= 80, y=170)
 
 label_title_1 = tkinter.Label(frame_title, text="Un patrimoine en soins.", font=("Rubik", 24), bg="#15AED6", fg="white")
 label_title_1.grid(row=1, column=0, sticky="w")
