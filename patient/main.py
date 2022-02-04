@@ -4,32 +4,38 @@ from PIL import Image, ImageTk
 from fonctions.data import get_data, recording_data
 from fonctions import fonctionnality
 
+# Chemin pour les images
 folder_clinique = os.getcwd().replace("patient", "")
 folder_img = os.path.join(folder_clinique, "img")
 path_img = folder_img + "/" + "—Pngtree—healthcare medical logo vector icon_5059582.png"
 
+# Chemin pour les fichiers json 
 folder_data = os.path.join(folder_clinique, "data_programme")
 list_patients = get_data(folder_data, "list_patients")
 list_appointment = get_data(folder_data, "list_appoitment")
 
+# ID patient
+_ID = {}
 
 def recording_clients():
     def check_registration():
-        last_name = enter_last_name.get()
-        firs_name = enter_firs_name.get()
-        telephone = enter_phone.get()
+        last_name = enter_last_name.get().lower()
+        firs_name = enter_firs_name.get().lower()
+        phone = enter_phone.get()
         password = enter_password.get()
         
-        if last_name and firs_name and telephone.isdigit() and password:
+        if last_name and firs_name and phone.isdigit() and password:
             _id = fonctionnality.creation_id(list_patients, "id")
-            
             data_patient = {
                 "id": _id,
                 "last_name": last_name,
                 "firs_name": firs_name,
-                "telephone": telephone,
+                "phone": phone,
                 "password": password
             }
+            
+            for key, value in data_patient.items(): _ID[key] = value
+             
             list_patients.append(data_patient)
             recording_data(list_patients, folder_clinique, "data_programme", "list_patients")
             
@@ -39,13 +45,13 @@ def recording_clients():
             enter_password.delete(0, "end")
             
             label_error["fg"] = "#15AED6"
+            window_user()
         else:
             label_error["fg"] = "#FA0000"
     
-    frame_main.place_forget()
-        
+    frame_main.place_forget()    
     frame_container_registration.place(x=150, y=140) 
-        
+    
     label_title = tkinter.Label(frame_container_registration, text="Crée votre compte", bg="#15AED6", font=("Arial", 24, "bold"))
     label_title.grid(row=0, column=0, pady=20, sticky="w")
     
@@ -87,21 +93,20 @@ def connection():
     def check_connection():
         password = enter_password.get()
         phone = enter_phone.get()        
-        account_exists = False
 
         if password and phone.isdigit():
-            print(list_patients)
-            for item in list_patients:
-                if item["telephone"] == phone and item["password"] == password:
-                    account_exists = True
+            for items in list_patients:
+                if items["phone"] == phone and items["password"] == password:
+                    label_error["fg"] = "#15AED6"
+                    enter_password.delete(0, "end")
+                    enter_phone.delete(0, "end")
+                    
+                    for key, value in items.items():
+                        _ID[key] = value
+                    window_user()
                     break
-            
-            if account_exists:
-                label_error["fg"] = "#15AED6"
-                enter_password.delete(0, "end")
-                enter_phone.delete(0, "end")
             else:
-               label_error["fg"] = "#FA0000"
+                label_error["fg"] = "#FA0000"    
         else:
             label_error["fg"] = "#FA0000"
     
@@ -140,10 +145,24 @@ def back():
     frame_main.place(x=80, y=200)
     
     
+def window_user():
+    frame_container_connection.place_forget()
+    frame_container_registration.place_forget()
+    frame_container_img.pack_forget()
     
+    frame_menu = tkinter.Frame(frame_1, bg="white")
+    frame_menu.place(x=0, y=110)
     
+    bnt_appointment = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3)
+    bnt_appointment.grid(row=0, column=0, pady=50)
     
+    bnt_notebook = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3)
+    bnt_notebook.grid(row=1, column=0, pady=50)
     
+    bnt_cancel = tkinter.Button(frame_menu, text="Anuler un rendez-vous", bg="#eaeaea", width=76, height=3)
+    bnt_cancel.grid(row=2, column=0, pady=50)
+
+
     
 
 # Fenêtre principale
@@ -151,6 +170,7 @@ window = tkinter.Tk()
 window.geometry("1080x720")
 window.title("Clinique Popo")
 window.resizable(False, False)
+window["bg"] = "white"
 
 frame_1 = tkinter.Frame(window, bg="white", width=540)
 frame_1.pack(side="left", fill="y")
@@ -162,8 +182,10 @@ frame_main = tkinter.Frame(frame_2, bg="#15AED6")
 frame_main.place(x=80, y=200)
 
 frame_container_connection = tkinter.Frame(frame_2, bg="#15AED6")
-
 frame_container_registration = tkinter.Frame(frame_2, bg="#15AED6")
+
+frame_container_img = tkinter.Frame(frame_1, bg="white", width=540)
+frame_container_img.pack(side="left", fill="y")
 
 frame_title = tkinter.Frame(frame_main, bg="#15AED6")
 frame_title.grid(row=0, column=0, pady=20)
@@ -172,7 +194,7 @@ image = Image.open(path_img)
 image_redimentionner = image.resize((300, 300))
 image_final = ImageTk.PhotoImage(image_redimentionner)
 
-image_label = tkinter.Label(frame_1, image=image_final, bg='white')
+image_label = tkinter.Label(frame_container_img, image=image_final, bg='white')
 image_label.place(x= 80, y=170)
 
 label_title_1 = tkinter.Label(frame_title, text="Un patrimoine en soins.", font=("Rubik", 24), bg="#15AED6", fg="white")
