@@ -1,5 +1,6 @@
 import os
 import string
+import tkinter
 import random
 from fonctions.data import get_data, recording_data
 
@@ -25,7 +26,6 @@ def recording_clients():
             "telephone": telephone,
             "password": password
         }
-
         list_patients.append(data_patient)
         recording_data(list_patients, folder_current, "data_programme", "list_patients")
     else:
