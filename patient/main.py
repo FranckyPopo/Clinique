@@ -221,7 +221,7 @@ def cancel_appointment():
         
         for item in list_appointment:
             if item["id"] == id_delete:
-                del item
+                list_appointment.remove(item)
                 recording_data(list_appointment, folder_clinique, "data_programme", "list_appoitment")
                 break
         
