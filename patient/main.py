@@ -1,7 +1,9 @@
+import os
+from functools import partial
+from time import sleep
 import tkinter
 from tkcalendar import DateEntry
 from tkinter import ttk
-import os
 from PIL import Image, ImageTk
 from fonctions.data import get_data, recording_data
 from fonctions import fonctionnality
@@ -158,10 +160,10 @@ def window_user():
     bnt_appointment = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3, command=appoitment)
     bnt_appointment.grid(row=0, column=0, pady=50)
     
-    bnt_notebook = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3)
+    bnt_notebook = tkinter.Button(frame_menu, text="Voir canet de santé", bg="#eaeaea", width=76, height=3)
     bnt_notebook.grid(row=1, column=0, pady=50)
     
-    bnt_cancel = tkinter.Button(frame_menu, text="Anuler un rendez-vous", bg="#eaeaea", width=76, height=3)
+    bnt_cancel = tkinter.Button(frame_menu, text="Anuler un rendez-vous", bg="#eaeaea", width=76, height=3, command=cancel_appointment)
     bnt_cancel.grid(row=2, column=0, pady=50)
 
 
@@ -177,7 +179,7 @@ def appoitment():
                 "last_name": _ID.get("last_name", "la clé last_name n'existe pas"),
                 "firs_name": _ID.get("firs_name", "la clé firs_name n'existe pas"),
                 "phone": _ID.get("phone", "la clé phone n'existe pas"),
-                "choose_specialist": choose_specialist,
+                "choice_specialist": choose_specialist,
                 "data_appointment": date_appoitment
             }
             
@@ -188,6 +190,7 @@ def appoitment():
         else:
            label_error["fg"] = "#FA0000"
     
+    frame_container_cancel_appointment.place_forget()
     frame_container_appointment.place(x=180, y=220)
     
     label_specialist = tkinter.Label(frame_container_appointment, text="Spécialiste:", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
@@ -209,6 +212,49 @@ def appoitment():
     
     bnt_validate_appoitment = tkinter.Button(frame_container_appointment, text="Prendre le rendez-vous", width=20, height=2, bg="#0e7993", command=check_appoitment)
     bnt_validate_appoitment.grid(row=5, column=0, pady=5, sticky="w")
+    
+
+def cancel_appointment():
+    def delete_appointment(id_delete: str, *label_delete):
+        for widget in label_delete:
+            widget.grid_forget()
+        
+        for item in list_appointment:
+            if item["id"] == id_delete:
+                del item
+                recording_data(list_appointment, folder_clinique, "data_programme", "list_appoitment")
+                break
+        
+        
+        
+    frame_container_appointment.place_forget()
+    frame_container_cancel_appointment.place(x=80, y=150)
+    
+    title_date_appoitment = tkinter.Label(frame_container_cancel_appointment, bg="#15AED6", text="Date", font=("Arial", 18, "bold"))
+    title_date_appoitment.grid(row=0, column=0, sticky="w")
+    
+    label_doctor = tkinter.Label(frame_container_cancel_appointment, bg="#15AED6", text="Medecin", font=("Arial", 18, "bold"))
+    label_doctor.grid(row=0, column=1, padx=75)
+    
+    i = 1
+    for appoitment in list_appointment:
+        if appoitment["phone"] == _ID["phone"]:
+            date = appoitment["data_appointment"]
+            specialist = appoitment["choice_specialist"]
+            
+            label_date = tkinter.Label(frame_container_cancel_appointment, text=date, bg="#15AED6", fg="#1C1C1C", font=("Rubik", 13))
+            label_date.grid(row=i, column=0, sticky="w")
+        
+            label_specialist = tkinter.Label(frame_container_cancel_appointment, text=specialist, bg="#15AED6", fg="#1C1C1C", font=("Rubik", 13))
+            label_specialist.grid(row=i, column=1, sticky="w", padx=75, pady=10)
+            
+            bnt_cancel = tkinter.Button(frame_container_cancel_appointment, text="Anuler", bg="#0e7993", fg="#1C1C1C", font=("Rubik", 13 , "bold"))
+            bnt_cancel.grid(row=i, column=2)  
+            bnt_cancel["command"] = partial(delete_appointment, appoitment["id"], label_date, label_specialist, bnt_cancel)
+            i += 1 
+    
+    
+    
     
 
 # Fenêtre principale
@@ -234,6 +280,7 @@ frame_container_img = tkinter.Frame(frame_1, bg="white", width=540)
 frame_container_img.pack(side="left", fill="y")
 
 frame_container_appointment = tkinter.Frame(frame_2, bg="#15AED6")
+frame_container_cancel_appointment = tkinter.Frame(frame_2, bg="#15AED6")
 
 frame_title = tkinter.Frame(frame_main, bg="#15AED6")
 frame_title.grid(row=0, column=0, pady=20)
