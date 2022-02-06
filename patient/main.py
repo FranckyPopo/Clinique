@@ -316,18 +316,13 @@ image_final = ImageTk.PhotoImage(image_redimentionner)
 image_label = tkinter.Label(frame_container_img, image=image_final, bg='white')
 image_label.place(x= 80, y=170)
 
-label_title_1 = tkinter.Label(frame_title, text="Un patrimoine en soins.", font=("Rubik", 24), bg="#15AED6", fg="white")
+label_title_1 = tkinter.Label(frame_title, text="Un patrimoine en soins.\n Une réputation d'excellence.", font=("Rubik", 24), bg="#15AED6", fg="white", justify="left")
 label_title_1.grid(row=1, column=0, sticky="w")
-
-label_title_2 = tkinter.Label(frame_title, text="Une réputation d'excellence.", font=("Rubik", 24), bg="#15AED6", fg="white")
-label_title_2.grid(row=2, column=0, sticky="w")
 
 bnt_register = tkinter.Button(frame_main, text="S'inscrire", bg="#0e7993", width=8, height=2, font=("Arial", 12), command=recording_clients)
 bnt_register.grid(row=3, column=0, sticky="w", pady=15)
 
-
 bnt_connect = tkinter.Button(frame_main, text="Se connecter", bg="#0e7993", width=10, height=2, font=("Arial", 12), command=connection)
 bnt_connect.grid(row=4, column=0, sticky="w", pady=5)
-
 
 window.mainloop()
