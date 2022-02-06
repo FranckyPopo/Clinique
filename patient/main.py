@@ -230,9 +230,7 @@ def cancel_appointment():
                 list_appointment.remove(item)
                 recording_data(list_appointment, folder_clinique, "data_programme", "list_appoitment")
                 break
-        
-        
-        
+
     frame_container_appointment.place_forget()
     frame_container_see_notebook.place_forget()
     frame_container_cancel_appointment.place(x=80, y=150)
