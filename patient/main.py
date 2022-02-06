@@ -159,13 +159,13 @@ def window_user():
     frame_menu = tkinter.Frame(frame_1, bg="white")
     frame_menu.place(x=0, y=110)
     
-    bnt_appointment = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3, command=appoitment)
+    bnt_appointment = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3, command=appoitment, relief="raised")
     bnt_appointment.grid(row=0, column=0, pady=50)
     
-    bnt_notebook = tkinter.Button(frame_menu, text="Voir canet de santé", bg="#eaeaea", width=76, height=3, command=see_notebook)
+    bnt_notebook = tkinter.Button(frame_menu, text="Voir canet de santé", bg="#eaeaea", width=76, height=3, command=see_notebook, relief="raised")
     bnt_notebook.grid(row=1, column=0, pady=50)
     
-    bnt_cancel = tkinter.Button(frame_menu, text="Anuler un rendez-vous", bg="#eaeaea", width=76, height=3, command=cancel_appointment)
+    bnt_cancel = tkinter.Button(frame_menu, text="Anuler un rendez-vous", bg="#eaeaea", width=76, height=3, command=cancel_appointment, relief="raised")
     bnt_cancel.grid(row=2, column=0, pady=50)
 
 
@@ -193,6 +193,7 @@ def appoitment():
            label_error["fg"] = "#FA0000"
     
     frame_container_cancel_appointment.place_forget()
+    frame_container_see_notebook.place_forget()
     frame_container_appointment.place(x=180, y=220)
     
     label_specialist = tkinter.Label(frame_container_appointment, text="Spécialiste:", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
@@ -230,6 +231,7 @@ def cancel_appointment():
         
         
     frame_container_appointment.place_forget()
+    frame_container_see_notebook.place_forget()
     frame_container_cancel_appointment.place(x=80, y=150)
     
     title_date_appoitment = tkinter.Label(frame_container_cancel_appointment, bg="#15AED6", text="Date", font=("Arial", 18, "bold"))
@@ -274,10 +276,7 @@ def see_notebook():
         label_doctor.grid(row=i+1, column=0, sticky="w")
         
         i += 1
-    
 
-    
-    
 
 # Fenêtre principale
 window = tkinter.Tk()
