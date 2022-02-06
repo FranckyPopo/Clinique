@@ -14,36 +14,36 @@ list_patients = get_data(folder_data, "list_patients")
 list_appointment = get_data(folder_data, "list_appoitment")
 list_reason = get_data(folder_data, "list_reason")
 
-doctor = [
+list_doctors = [
     {
         "name_doctor": "Afri Franck",
         "specialist": "Géneraliste",
         "registation_number": "AAAA1",
-        "mot_de_passe": "AAAA1"
+        "password": "AAAA1"
     },
     {
         "name_doctor": "Kreto Ariel",
         "specialist": "Dentiste",
         "registation_number": "AAAA2",
-        "mot_de_passe": "AAAA2"
+        "password": "AAAA2"
     },
     {
         "name_doctor": "Francky Popo",
         "specialist": "Dermatogue",
         "registation_number": "AAAA3",
-        "mot_de_passe": "AAAA3"
+        "password": "AAAA3"
     },
     {
         "name_doctor": "Francky Pigeon",
         "specialist": "Neurologue",
         "registation_number": "AAAA4",
-        "mot_de_passe": "AAAA4"
+        "password": "AAAA4"
     },
     {
         "name_doctor": "Francky Popo",
         "specialist": "Génécolgue",
         "registation_number": "AAAA5",
-        "mot_de_passe": "AAAA5"
+        "password": "AAAA5"
     }
 ]
 
@@ -51,18 +51,15 @@ doctor = [
 def connection():
     def check_connection():
         password = enter_password.get()
-        phone = enter_phone.get()        
+        registation_number = enter_registation_number.get()        
 
-        if password and phone.isdigit():
-            for items in list_patients:
-                if items["phone"] == phone and items["password"] == password:
+        if password and registation_number:
+            for item in list_doctors:
+                if item.get("registation_number") == registation_number and item.get("password") == password:
                     label_error["fg"] = "#15AED6"
                     enter_password.delete(0, "end")
-                    enter_phone.delete(0, "end")
-                    
-                    for key, value in items.items():
-                        _ID[key] = value
-                    window_user()
+                    enter_registation_number.delete(0, "end")
+                    #window_user()
                     break
             else:
                 label_error["fg"] = "#FA0000"    
@@ -76,11 +73,11 @@ def connection():
     label_title = tkinter.Label(frame_container_connection, text="Connectez-vous", bg="#15AED6", font=("Arial", 24, "bold"))
     label_title.grid(row=0, column=0, pady=15)
     
-    label_phone = tkinter.Label(frame_container_connection, text="Matricule", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
-    label_phone.grid(row=1, column=0, sticky="w")
+    label_registation_number = tkinter.Label(frame_container_connection, text="Matricule", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
+    label_registation_number.grid(row=1, column=0, sticky="w")
     
-    enter_phone = tkinter.Entry(frame_container_connection)
-    enter_phone.grid(row=2, column=0, sticky="w", pady=5)
+    enter_registation_number = tkinter.Entry(frame_container_connection)
+    enter_registation_number.grid(row=2, column=0, sticky="w", pady=5)
     
     label_password = tkinter.Label(frame_container_connection, text="Mot de passe:", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
     label_password.grid(row=3, column=0, sticky="w")
