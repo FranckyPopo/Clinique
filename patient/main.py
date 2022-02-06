@@ -4,6 +4,7 @@ from time import sleep
 import tkinter
 from tkcalendar import DateEntry
 from tkinter import ttk
+from tkinter import messagebox
 from PIL import Image, ImageTk
 from fonctions.data import get_data, recording_data
 from fonctions import fonctionnality
@@ -137,7 +138,7 @@ def connection():
     label_error = tkinter.Label(frame_container_connection, text="Impossible de vous connecter", fg="#15AED6", bg="#15AED6", font=("Arial", 12, "bold"))
     label_error.grid(row=5, column=0, sticky="w", pady=7)
     
-    bnt_connect = tkinter.Button(frame_container_connection, text="Se connecter", width=10, height=2, bg="#0e7993", command=check_connection)
+    bnt_connect = tkinter.Button(frame_container_connection, text="Se connecter", width=10, height=2, bg="#0e7993", command=check_connection, font=("Rubik", 13))
     bnt_connect.grid(row=6, column=0, pady=5, sticky="w")
     
     bnt_back = tkinter.Button(frame_container_connection, text="Retour", bg="#FA0000", width=8, height=2, font=("Rubik", 13), command=back)
@@ -188,7 +189,9 @@ def appoitment():
             list_appointment.append(data_appointment)
             recording_data(list_appointment, folder_clinique, "data_programme", "list_appoitment")
             
+            messagebox.showinfo("Rendez-vous", "Votre rendez-vous a été pris avec succès")
             label_error["fg"] = "#15AED6"
+            cancel_appointment()
         else:
            label_error["fg"] = "#FA0000"
     
