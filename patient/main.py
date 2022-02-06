@@ -17,6 +17,7 @@ path_img = folder_img + "/" + "—Pngtree—healthcare medical logo vector icon_
 folder_data = os.path.join(folder_clinique, "data_programme")
 list_patients = get_data(folder_data, "list_patients")
 list_appointment = get_data(folder_data, "list_appoitment")
+list_reason = get_data(folder_data, "list_reason")
 
 # ID patient
 _ID = {}
@@ -152,6 +153,7 @@ def back():
 def window_user():
     frame_container_connection.place_forget()
     frame_container_registration.place_forget()
+    frame_container_see_notebook.place_forget()
     frame_container_img.pack_forget()
     
     frame_menu = tkinter.Frame(frame_1, bg="white")
@@ -160,7 +162,7 @@ def window_user():
     bnt_appointment = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3, command=appoitment)
     bnt_appointment.grid(row=0, column=0, pady=50)
     
-    bnt_notebook = tkinter.Button(frame_menu, text="Voir canet de santé", bg="#eaeaea", width=76, height=3)
+    bnt_notebook = tkinter.Button(frame_menu, text="Voir canet de santé", bg="#eaeaea", width=76, height=3, command=see_notebook)
     bnt_notebook.grid(row=1, column=0, pady=50)
     
     bnt_cancel = tkinter.Button(frame_menu, text="Anuler un rendez-vous", bg="#eaeaea", width=76, height=3, command=cancel_appointment)
@@ -254,6 +256,26 @@ def cancel_appointment():
             i += 1 
     
     
+def see_notebook():
+    frame_container_appointment.place_forget()
+    frame_container_cancel_appointment.place_forget()
+    frame_container_see_notebook.place(x=100, y=100)
+    
+    i = 0
+    for item in list_reason:
+        infos_appoitment = item["name_doctor"] + "\t\t\t\t\t\t       "+ item["date"]
+        frame_infos = tkinter.Frame(frame_container_see_notebook, bg="#15AED6")
+        frame_infos.grid(row=i, column=0)
+        
+        label_reason = tkinter.Label(frame_infos, text=item["reason"], justify="left", wraplength=350, bg="#15AED6")
+        label_reason.grid(row=i, column=0, pady=8, sticky="w")
+        
+        label_doctor = tkinter.Label(frame_infos, bg="#15AED6", fg="white", text=infos_appoitment)
+        label_doctor.grid(row=i+1, column=0, sticky="w")
+        
+        i += 1
+    
+
     
     
 
@@ -275,12 +297,12 @@ frame_main.place(x=80, y=200)
 
 frame_container_connection = tkinter.Frame(frame_2, bg="#15AED6")
 frame_container_registration = tkinter.Frame(frame_2, bg="#15AED6")
+frame_container_appointment = tkinter.Frame(frame_2, bg="#15AED6")
+frame_container_cancel_appointment = tkinter.Frame(frame_2, bg="#15AED6")
+frame_container_see_notebook = tkinter.Frame(frame_2, bg="#15AED6")
 
 frame_container_img = tkinter.Frame(frame_1, bg="white", width=540)
 frame_container_img.pack(side="left", fill="y")
-
-frame_container_appointment = tkinter.Frame(frame_2, bg="#15AED6")
-frame_container_cancel_appointment = tkinter.Frame(frame_2, bg="#15AED6")
 
 frame_title = tkinter.Frame(frame_main, bg="#15AED6")
 frame_title.grid(row=0, column=0, pady=20)
