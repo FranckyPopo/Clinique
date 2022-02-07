@@ -216,8 +216,8 @@ def appoitment():
     label_error = tkinter.Label(frame_container_appointment, text="Veuillez remplir tout les champs", bg="#15AED6", fg="#15AED6", font=("Arial", 12, "bold"))
     label_error.grid(row=4, column=0, pady=5, sticky="w")
     
-    bnt_validate_appoitment = tkinter.Button(frame_container_appointment, text="Prendre le rendez-vous", width=20, height=2, bg="#0e7993", command=check_appoitment)
-    bnt_validate_appoitment.grid(row=5, column=0, pady=5, sticky="w")
+    bnt_validate_appoitment = tkinter.Button(frame_container_appointment, text="Prendre le rendez-vous", width=20, font=("Rubik", 14), bg="#0e7993", command=check_appoitment, relief="flat")
+    bnt_validate_appoitment.grid(row=5, column=0, pady=5, sticky="w", ipadx=3, ipady=2)
     
 
 def cancel_appointment():
