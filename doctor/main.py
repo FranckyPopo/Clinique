@@ -1,5 +1,7 @@
-import os
 import tkinter
+from tkinter import messagebox
+import os
+from datetime import datetime
 from PIL import Image, ImageTk
 from data import get_data, recording_data
 
@@ -155,40 +157,51 @@ def see_appoitment():
 def fill_notebook():
     def check_fill_notebook():
         id_patient = enter_id.get()
-        reason = enter_reason.get()
+        reason = enter_reason.get(1.0, "end")
         
         for item in list_appointment:
             for patient in list_patients: 
-                if item["id"] == id_patient and patient["phone"] == item["phone"] and patient["last_name"] == item["last_name"]:
-                    notebook = {"id": id_patient, "reason": reason, "date": None}
+                if item["id"] == id_patient and reason != "\n" and patient["phone"] == item["phone"]:
+                    date_day = datetime.today().strftime('%d-%m-%Y')
+                    notebook = {
+                        "id": id_patient, 
+                        "reason": reason, 
+                        "name_doctor": _ID["name_doctor"],
+                        "date": date_day
+                    }
                     list_notebook.append(notebook)
                     recording_data(list_notebook, folder_clinique, "data_programme", "list_notebook")
+                    label_error["fg"] = "#15AED6" 
+
+                    enter_id.delete(0, "end")
+                    enter_reason.delete(1.0, "end")
+                    
+                    messagebox.showinfo("Consultation", "Le carnet a été  remplit avec succès")
                     break
-        else:
-            label_error["fg"] = "#FA0000"       
+            else:
+                label_error["fg"] = "#FA0000"       
     
     frame_container_see_appoitment.place_forget()
     frame_container_see_notebook.place_forget()
-    frame_container_fill_notebook.place(x=100, y=100)
+    frame_container_fill_notebook.place(x=160, y=140,)
     
     label_id = tkinter.Label(frame_container_fill_notebook, bg="#15AED6", text="Identifiant du patient", font=("Rubik", 18))
     label_id.grid(row=0, column=0, pady=5, sticky="w")
     
-    enter_id = tkinter.Entry(frame_container_fill_notebook, width=30)
+    enter_id = tkinter.Entry(frame_container_fill_notebook, width=37)
     enter_id.grid(row=1, column=0, pady=5, sticky="w")
-    
     
     label_reason= tkinter.Label(frame_container_fill_notebook, bg="#15AED6", text="Motif", font=("Rubik", 18))
     label_reason.grid(row=2, column=0, pady=5, sticky="w")
     
-    enter_reason = tkinter.Entry(frame_container_fill_notebook, width=30)
+    enter_reason = tkinter.Text(frame_container_fill_notebook, width=20, height=10, font=("time new roman", 14), wrap="word")
     enter_reason.grid(row=3, column=0, pady=5, sticky="w")
     
-    label_error = tkinter.Label(frame_container_fill_notebook, bg="#15AED6", fg="#15AED6", text="Veuillez remplir tous les champs", font=("Rubik", 13, "bold"))
+    label_error = tkinter.Label(frame_container_fill_notebook, bg="#15AED6", fg="#15AED6",  text="Impossible de remplir le canet", font=("Rubik", 13, "bold"))
     label_error.grid(row=4, column=0, pady=5, sticky="w")
     
     bnt_fill_notebook = tkinter.Button(frame_container_fill_notebook, text="Remplir le canet", bg="#0e7993", font=("Rubik", 13), relief="flat", command=check_fill_notebook)
-    bnt_fill_notebook.grid(row=5, column=0, pady=5, ipadx=3, ipady=2)
+    bnt_fill_notebook.grid(row=5, column=0, pady=5, ipadx=3, ipady=2, sticky="w")
     
 
 
