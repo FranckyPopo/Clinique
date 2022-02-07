@@ -18,7 +18,7 @@ path_img = folder_img + "/" + "—Pngtree—healthcare medical logo vector icon_
 folder_data = os.path.join(folder_clinique, "data_programme")
 list_patients = get_data(folder_data, "list_patients")
 list_appointment = get_data(folder_data, "list_appoitment")
-list_reason = get_data(folder_data, "list_reason")
+list_reason = get_data(folder_data, "list_notebook")
 
 # ID patient
 _ID = {}
@@ -266,17 +266,20 @@ def see_notebook():
     
     i = 0
     for item in list_reason:
-        infos_appoitment = item["name_doctor"] + "\t\t\t\t\t\t       "+ item["date"]
-        frame_infos = tkinter.Frame(frame_container_see_notebook, bg="#15AED6")
-        frame_infos.grid(row=i, column=0)
-        
-        label_reason = tkinter.Label(frame_infos, text=item["reason"], justify="left", wraplength=350, bg="#15AED6")
-        label_reason.grid(row=i, column=0, pady=8, sticky="w")
-        
-        label_doctor = tkinter.Label(frame_infos, bg="#15AED6", fg="white", text=infos_appoitment)
-        label_doctor.grid(row=i+1, column=0, sticky="w")
-        
-        i += 1
+        print("boucle")
+        if item["phone"] == _ID["phone"]:
+            print("oui")
+            infos_appoitment = item["name_doctor"] + "\t\t\t\t\t\t       "+ item["date"]
+            frame_infos = tkinter.Frame(frame_container_see_notebook, bg="#15AED6")
+            frame_infos.grid(row=i, column=0)
+            
+            label_reason = tkinter.Label(frame_infos, text=item["reason"], justify="left", wraplength=350, bg="#15AED6")
+            label_reason.grid(row=i, column=0, pady=8, sticky="w")
+            
+            label_doctor = tkinter.Label(frame_infos, bg="#15AED6", fg="white", text=infos_appoitment)
+            label_doctor.grid(row=i+1, column=0, sticky="w")
+            
+            i += 1
 
 
 # Fenêtre principale
