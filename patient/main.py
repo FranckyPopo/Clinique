@@ -56,12 +56,12 @@ def recording_clients():
             label_error["fg"] = "#FA0000"
     
     frame_main.place_forget()    
-    frame_container_registration.place(x=150, y=140) 
+    frame_container_registration.place(x=150, y=130) 
     
-    label_title = tkinter.Label(frame_container_registration, text="Crée votre compte", bg="#15AED6", font=("Arial", 24, "bold"))
+    label_title = tkinter.Label(frame_container_registration, text="Crée votre compte", bg="#15AED6", fg="#1C1C1C", font=("Arial", 24, "bold"))
     label_title.grid(row=0, column=0, pady=20, sticky="w")
     
-    label_last_name = tkinter.Label(frame_container_registration, text="Nom:", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
+    label_last_name = tkinter.Label(frame_container_registration, text="Nom:", bg="#15AED6", fg="#1C1C1C", font=("Rubik", 16))
     label_last_name.grid(row=1, column=0, sticky="w")
     
     enter_last_name = tkinter.Entry(frame_container_registration, width=30)
@@ -73,13 +73,13 @@ def recording_clients():
     enter_firs_name = tkinter.Entry(frame_container_registration, width=30)
     enter_firs_name.grid(row=4, column=0, sticky="w", pady=5)
     
-    label_phone = tkinter.Label(frame_container_registration, text="Téléphone:", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
+    label_phone = tkinter.Label(frame_container_registration, text="Téléphone:", bg="#15AED6", fg="#1C1C1C", font=("Rubik", 16), )
     label_phone.grid(row=5, column=0, sticky="w")
     
     enter_phone = tkinter.Entry(frame_container_registration, width=30)
     enter_phone.grid(row=6, column=0, sticky="w", pady=5)
     
-    label_password = tkinter.Label(frame_container_registration, text="Mot de passe:", bg="#15AED6", font=("Rubik", 16), fg="#1C1C1C")
+    label_password = tkinter.Label(frame_container_registration, text="Mot de passe:", bg="#15AED6", fg="#1C1C1C", font=("Rubik", 16))
     label_password.grid(row=7, column=0, sticky="w")
     
     enter_password = tkinter.Entry(frame_container_registration, width=30)
@@ -88,11 +88,11 @@ def recording_clients():
     label_error = tkinter.Label(frame_container_registration, text="Veuillez remplir tout les champs", fg="#15AED6", bg="#15AED6", font=("Arial", 12, "bold"))
     label_error.grid(row=9, column=0, sticky="w", pady=5)
     
-    bnt_registration = tkinter.Button(frame_container_registration, text="S'inscrir", bg="#0e7993", width=8, height=2, font=("Rubik", 13), command=check_registration)
-    bnt_registration.grid(row=10, column=0, sticky="w", pady=5) 
+    bnt_registration = tkinter.Button(frame_container_registration, text="S'inscrir", relief="flat", bg="#0e7993", fg="#1C1C1C", font=("Rubik", 13), command=check_registration)
+    bnt_registration.grid(row=10, column=0, sticky="w", pady=5, ipadx=3, ipady=2) 
     
-    bnt_back = tkinter.Button(frame_container_registration, text="Retour", bg="#FA0000", width=8, height=2, font=("Rubik", 13), command=back)
-    bnt_back.grid(row=11, column=0, sticky="w", pady=5)
+    bnt_back = tkinter.Button(frame_container_registration, text="Retour", relief="flat", bg="#FA0000", fg="#1C1C1C", font=("Rubik", 13), command=back)
+    bnt_back.grid(row=11, column=0, sticky="w", pady=5, ipadx=3, ipady=2)
 
 
 def connection():
@@ -138,11 +138,11 @@ def connection():
     label_error = tkinter.Label(frame_container_connection, text="Impossible de vous connecter", fg="#15AED6", bg="#15AED6", font=("Arial", 12, "bold"))
     label_error.grid(row=5, column=0, sticky="w", pady=7)
     
-    bnt_connect = tkinter.Button(frame_container_connection, text="Se connecter", width=10, height=2, bg="#0e7993", command=check_connection, font=("Rubik", 13))
-    bnt_connect.grid(row=6, column=0, pady=5, sticky="w")
+    bnt_connect = tkinter.Button(frame_container_connection, text="Se connecter", relief="flat", bg="#0e7993", command=check_connection, font=("Rubik", 13))
+    bnt_connect.grid(row=6, column=0, pady=5, sticky="w", ipadx=3, ipady=2)
     
-    bnt_back = tkinter.Button(frame_container_connection, text="Retour", bg="#FA0000", width=8, height=2, font=("Rubik", 13), command=back)
-    bnt_back.grid(row=7, column=0, sticky="w", pady=5)
+    bnt_back = tkinter.Button(frame_container_connection, text="Retour", relief="flat", bg="#FA0000", font=("Rubik", 13), command=back)
+    bnt_back.grid(row=7, column=0, sticky="w", pady=5, ipadx=3, ipady=2)
     
     
 def back():
@@ -160,14 +160,14 @@ def window_user():
     frame_menu = tkinter.Frame(frame_1, bg="white")
     frame_menu.place(x=0, y=110)
     
-    bnt_appointment = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", width=76, height=3, command=appoitment, relief="raised")
-    bnt_appointment.grid(row=0, column=0, pady=50)
+    bnt_appointment = tkinter.Button(frame_menu, text="Prendre rendez-vous", bg="#eaeaea", height=3,  width=76, command=appoitment, relief="raised", font=("Rubik", 10))
+    bnt_appointment.grid(row=0, column=0, pady=30)
     
-    bnt_notebook = tkinter.Button(frame_menu, text="Voir canet de santé", bg="#eaeaea", width=76, height=3, command=see_notebook, relief="raised")
-    bnt_notebook.grid(row=1, column=0, pady=50)
+    bnt_notebook = tkinter.Button(frame_menu, text="Voir canet de santé", bg="#eaeaea", width=76, height=3, command=see_notebook, relief="raised", font=("Rubik", 10))
+    bnt_notebook.grid(row=1, column=0, pady=70)
     
-    bnt_cancel = tkinter.Button(frame_menu, text="Anuler un rendez-vous", bg="#eaeaea", width=76, height=3, command=cancel_appointment, relief="raised")
-    bnt_cancel.grid(row=2, column=0, pady=50)
+    bnt_cancel = tkinter.Button(frame_menu, text="Anuler un rendez-vous", bg="#eaeaea", width=76, height=3, command=cancel_appointment, relief="raised", font=("Rubik", 10))
+    bnt_cancel.grid(row=2, column=0, pady=30)
 
 
 def appoitment():
@@ -233,13 +233,17 @@ def cancel_appointment():
 
     frame_container_appointment.place_forget()
     frame_container_see_notebook.place_forget()
-    frame_container_cancel_appointment.place(x=80, y=150)
+    frame_container_cancel_appointment.place(x=50, y=150)
     
-    title_date_appoitment = tkinter.Label(frame_container_cancel_appointment, bg="#15AED6", text="Date", font=("Arial", 18, "bold"))
+    title_date_appoitment = tkinter.Label(frame_container_cancel_appointment, bg="#15AED6", text="Date", font=("Rubik", 18, "bold"))
     title_date_appoitment.grid(row=0, column=0, sticky="w")
     
-    label_doctor = tkinter.Label(frame_container_cancel_appointment, bg="#15AED6", text="Medecin", font=("Arial", 18, "bold"))
-    label_doctor.grid(row=0, column=1, padx=75)
+    title_doctor = tkinter.Label(frame_container_cancel_appointment, bg="#15AED6", text="Medecin", font=("Rubik", 18, "bold"))
+    title_doctor.grid(row=0, column=1, padx=30)
+    
+    title_doctor = tkinter.Label(frame_container_cancel_appointment, bg="#15AED6", text="Id",  font=("Rubik", 18, "bold"))
+    title_doctor.grid(row=0, column=2, padx=20, sticky="w")
+    
     
     i = 1
     for appoitment in list_appointment:
@@ -251,10 +255,13 @@ def cancel_appointment():
             label_date.grid(row=i, column=0, sticky="w")
         
             label_specialist = tkinter.Label(frame_container_cancel_appointment, text=specialist, bg="#15AED6", fg="#1C1C1C", font=("Rubik", 13))
-            label_specialist.grid(row=i, column=1, sticky="w", padx=75, pady=10)
+            label_specialist.grid(row=i, column=1, sticky="w", padx=30, pady=10)
             
-            bnt_cancel = tkinter.Button(frame_container_cancel_appointment, text="Anuler", bg="#0e7993", fg="#1C1C1C", font=("Rubik", 13 , "bold"))
-            bnt_cancel.grid(row=i, column=2)  
+            label_id = tkinter.Label(frame_container_cancel_appointment, text=appoitment["id"], bg="#15AED6", fg="#1C1C1C", font=("Rubik", 13))
+            label_id.grid(row=i, column=2, sticky="w", padx=20, pady=10)
+            
+            bnt_cancel = tkinter.Button(frame_container_cancel_appointment, text="Anuler", bg="#0e7993", fg="#1C1C1C", font=("Rubik", 13), relief="flat")
+            bnt_cancel.grid(row=i, column=3, ipadx=3, ipady=2)  
             bnt_cancel["command"] = partial(delete_appointment, appoitment["id"], label_date, label_specialist, bnt_cancel)
             i += 1 
     
@@ -317,13 +324,13 @@ image_final = ImageTk.PhotoImage(image_redimentionner)
 image_label = tkinter.Label(frame_container_img, image=image_final, bg='white')
 image_label.place(x= 80, y=170)
 
-label_title_1 = tkinter.Label(frame_title, text="Un patrimoine en soins.\n Une réputation d'excellence.", font=("Rubik", 24), bg="#15AED6", fg="white", justify="left")
+label_title_1 = tkinter.Label(frame_title, text="Un patrimoine en soins.\nUne réputation d'excellence.", font=("Rubik", 24), bg="#15AED6", fg="white", justify="left")
 label_title_1.grid(row=1, column=0, sticky="w")
 
-bnt_register = tkinter.Button(frame_main, text="S'inscrire", bg="#0e7993", width=8, height=2, font=("Arial", 12), command=recording_clients)
-bnt_register.grid(row=3, column=0, sticky="w", pady=15)
+bnt_register = tkinter.Button(frame_main, text="S'inscrire", bg="#0e7993", font=("Rubik", 13), relief="flat", command=recording_clients)
+bnt_register.grid(row=3, column=0, sticky="w", pady=15, ipadx=3, ipady=2)
 
-bnt_connect = tkinter.Button(frame_main, text="Se connecter", bg="#0e7993", width=10, height=2, font=("Arial", 12), command=connection)
-bnt_connect.grid(row=4, column=0, sticky="w", pady=5)
+bnt_connect = tkinter.Button(frame_main, text="Se connecter", bg="#0e7993", font=("Rubik", 13), relief="flat", command=connection)
+bnt_connect.grid(row=4, column=0, sticky="w", pady=5, ipadx=3, ipady=2)
 
 window.mainloop()
