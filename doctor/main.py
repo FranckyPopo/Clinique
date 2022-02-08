@@ -115,7 +115,7 @@ def window_doctor():
     bnt_fill_notebook = tkinter.Button(frame_menu, text="Remplir un canet de santé", bg="#eaeaea", width=76, height=3, relief="raised", command=fill_notebook)
     bnt_fill_notebook.grid(row=1, column=0, pady=50)
     
-    bnt_modify_notebook = tkinter.Button(frame_menu, text="Modifier un canet de sante", bg="#eaeaea", width=76, height=3, relief="raised")
+    bnt_modify_notebook = tkinter.Button(frame_menu, text="Modifier un canet de sante", bg="#eaeaea", width=76, height=3, relief="raised", command=modify_notebook)
     bnt_modify_notebook.grid(row=2, column=0, pady=50)
 
 
@@ -164,6 +164,7 @@ def fill_notebook():
                 if item["id"] == id_patient and reason != "\n" and patient["phone"] == item["phone"]:
                     date_day = datetime.today().strftime('%d-%m-%Y')
                     notebook = {
+                        "phone": item["phone"],
                         "id": id_patient, 
                         "reason": reason, 
                         "name_doctor": _ID["name_doctor"],
@@ -171,11 +172,14 @@ def fill_notebook():
                     }
                     list_notebook.append(notebook)
                     recording_data(list_notebook, folder_clinique, "data_programme", "list_notebook")
-                    label_error["fg"] = "#15AED6" 
+                    label_error["fg"] = "#15AED6"
 
                     enter_id.delete(0, "end")
                     enter_reason.delete(1.0, "end")
                     
+                    list_appointment.remove(item)
+                    recording_data(list_appointment, folder_clinique, "data_programme", "list_appoitment")
+
                     messagebox.showinfo("Consultation", "Le carnet a été  remplit avec succès")
                     break
             else:
@@ -185,7 +189,7 @@ def fill_notebook():
     frame_container_see_notebook.place_forget()
     frame_container_fill_notebook.place(x=160, y=140,)
     
-    label_id = tkinter.Label(frame_container_fill_notebook, bg="#15AED6", text="Identifiant du patient", font=("Rubik", 18))
+    label_id = tkinter.Label(frame_container_fill_notebook, bg="#15AED6", text="Identifiant du rendez-vous", font=("Rubik", 18))
     label_id.grid(row=0, column=0, pady=5, sticky="w")
     
     enter_id = tkinter.Entry(frame_container_fill_notebook, width=37)
@@ -204,6 +208,58 @@ def fill_notebook():
     bnt_fill_notebook.grid(row=5, column=0, pady=5, ipadx=3, ipady=2, sticky="w")
     
 
+def modify_notebook():
+    def check_id():
+
+        def recording_new_notebook():
+            new_reason = enter_new_reason.get(1.0, "end")
+            if new_reason != "\n":
+                item["reason"] = new_reason
+                recording_data(list_notebook, folder_clinique, "data_programme", "list_notebook")
+                enter_new_reason.delete(1.0, "end")
+                messagebox.showinfo("Modification", "Le canet du patient a été modifier")
+            else:
+                label_error_2["fg"] = "#FA0000"
+                        
+        id_appointment = enter_id_appointment.get()
+        for item in list_notebook:
+            if item["id"] == id_appointment:
+                frame_container_modify_notebook.place_forget()
+                frame_container_test.place(x=100, y=100)
+                
+                label_new_reason = tkinter.Label(frame_container_test, text="Motif:", bg="#15AED6", font=("Rubik", 18))
+                label_new_reason.grid(row=0, column=0, sticky="w", pady=5)
+                
+                enter_new_reason = tkinter.Text(frame_container_test, width=30, height=15)
+                enter_new_reason.grid(row=1, column=0, sticky="w", pady=5)
+                
+                label_error_2 = tkinter.Label(frame_container_test, text="Veuillez remplir le champ", bg="#15AED6", fg="#15AED6",  font=("Rubik", 13, "bold"))
+                label_error_2.grid(row=2, column=0, pady=5, sticky="w")
+                
+                bnt_validate = tkinter.Button(frame_container_test, bg="#0e7993", relief="flat", text="Remplir le canet", command=recording_new_notebook)
+                bnt_validate.grid(row=3, column=0, ipadx=3, ipady=2, pady=5, sticky="w")
+                break            
+        else:
+            label_error["fg"] = "red"
+
+    frame_container_fill_notebook.place_forget()
+    frame_container_see_appoitment.place_forget()
+    frame_container_modify_notebook.place(x=100, y=100)
+ 
+    label_id_appointment = tkinter.Label(frame_container_modify_notebook, text="Entrer l'id su rendez-vous", bg="#15AED6", fg="#1C1C1C", font=("Rubik", 18))
+    label_id_appointment.grid(row=0, column=0, sticky="w", pady=3)
+    
+    enter_id_appointment = tkinter.Entry(frame_container_modify_notebook)
+    enter_id_appointment.grid(row=1, column=0, sticky="w", pady=3)
+    
+    label_error = tkinter.Label(frame_container_modify_notebook, text="ID incorrect", bg="#15AED6", fg="#15AED6", font=("Rubik", 13, "bold"))
+    label_error.grid(row=2, column=0, sticky="w", pady=3)
+    
+    bnt_validate_id_appoitment = tkinter.Button(frame_container_modify_notebook, relief="flat", text="Valider", command=check_id, bg="#0e7993")
+    bnt_validate_id_appoitment.grid(row=3, column=0, sticky="w", ipadx=3, ipady=2, pady=3)
+    
+    
+    
 
 window = tkinter.Tk()
 window.geometry("1080x720")
@@ -224,6 +280,9 @@ frame_container_connection = tkinter.Frame(frame_2, bg="#15AED6")
 frame_container_see_appoitment = tkinter.Frame(frame_2, bg="#15AED6")
 frame_container_see_notebook = tkinter.Frame(frame_2, bg="#15AED6")
 frame_container_fill_notebook = tkinter.Frame(frame_2, bg="#15AED6")
+frame_container_modify_notebook = tkinter.Frame(frame_2, bg="#15AED6")
+frame_container_test = tkinter.Frame(frame_2, bg="#15AED6")
+
 
 frame_container_img = tkinter.Frame(frame_1, bg="white", width=540)
 frame_container_img.pack(side="left", fill="y")
